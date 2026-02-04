@@ -1,35 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [stats, setStats] = useState(null);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/stats")
+      .then(res => res.json())
+      .then(data => setStats(data));
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React = Up and Running!</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div style={{ padding: 40 }}>
+      <h1>Dashboard</h1>
+
+      {!stats ? (
+        <p>Loading...</p>
+      ) : (
+        <ul>
+          <li>Users: {stats.users}</li>
+          <li>Sales: {stats.sales}</li>
+          <li>Orders: {stats.orders}</li>
+        </ul>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
