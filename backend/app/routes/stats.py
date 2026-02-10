@@ -1,11 +1,10 @@
 from fastapi import APIRouter
+from app.services.stats_service import get_stats_data
+from app.schemas.stats_schema import StatsResponse
 
 router = APIRouter()
 
-@router.get("/stats")
+
+@router.get("/stats", response_model=StatsResponse)
 def get_stats():
-    return {
-        "users": 120,
-        "sales": 35,
-        "revenue": 1024
-    }
+    return get_stats_data()
