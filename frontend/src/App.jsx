@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import {
+  BarChart,
+  Bar,
   LineChart,
   Line,
   XAxis,
@@ -30,24 +32,54 @@ function App() {
     <div style={{ padding: 40, fontFamily: "sans-serif" }}>
       <h1>Dashboard</h1>
 
-      {/* KPI */}
+      {/* KPI cards */}
       <div style={{ display: "flex", gap: 20, marginBottom: 40 }}>
-        <div>Users: {stats.users}</div>
-        <div>Sales: {stats.sales}</div>
-        <div>Revenue: ${stats.revenue}</div>
+        {[
+          { label: "Users", value: stats.users },
+          { label: "Sales", value: stats.sales },
+          { label: "Revenue", value: `$${stats.revenue}` },
+        ].map((item) => (
+          <div
+            key={item.label}
+            style={{
+              flex: 1,
+              padding: 20,
+              borderRadius: 12,
+              background: "#f3f4f6",
+              textAlign: "center",
+            }}
+          >
+            <h3>{item.label}</h3>
+            <p style={{ fontSize: 24, fontWeight: "bold" }}>{item.value}</p>
+          </div>
+        ))}
       </div>
 
-      {/* Line chart */}
-      <div style={{ width: "100%", height: 300 }}>
-        <ResponsiveContainer>
-          <LineChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="day" />
-            <YAxis />
-            <Tooltip />
-            <Line type="monotone" dataKey="sales" />
-          </LineChart>
-        </ResponsiveContainer>
+      {/* charts */}
+      <div style={{ display: "flex", gap: 40 }}>
+        <div style={{ flex: 1, height: 300 }}>
+          <ResponsiveContainer>
+            <LineChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="day" />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="sales" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div style={{ flex: 1, height: 300 }}>
+          <ResponsiveContainer>
+            <BarChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="day" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="sales" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );
