@@ -29,56 +29,52 @@ function App() {
   }));
 
   return (
-    <div style={{ padding: 40, fontFamily: "sans-serif" }}>
-      <h1>Dashboard</h1>
+    <div className="min-h-screen bg-gray-100 p-10">
+      <div className="max-w-6xl mx-auto space-y-10">
+        <h1 className="text-3xl font-bold">Dashboard</h1>
 
-      {/* KPI cards */}
-      <div style={{ display: "flex", gap: 20, marginBottom: 40 }}>
-        {[
-          { label: "Users", value: stats.users },
-          { label: "Sales", value: stats.sales },
-          { label: "Revenue", value: `$${stats.revenue}` },
-        ].map((item) => (
-          <div
-            key={item.label}
-            style={{
-              flex: 1,
-              padding: 20,
-              borderRadius: 12,
-              background: "#f3f4f6",
-              textAlign: "center",
-            }}
-          >
-            <h3>{item.label}</h3>
-            <p style={{ fontSize: 24, fontWeight: "bold" }}>{item.value}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* charts */}
-      <div style={{ display: "flex", gap: 40 }}>
-        <div style={{ flex: 1, height: 300 }}>
-          <ResponsiveContainer>
-            <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="day" />
-              <YAxis />
-              <Tooltip />
-              <Line type="monotone" dataKey="sales" />
-            </LineChart>
-          </ResponsiveContainer>
+        {/* KPI cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { label: "Users", value: stats.users },
+            { label: "Sales", value: stats.sales },
+            { label: "Revenue", value: `$${stats.revenue}` },
+          ].map((item) => (
+            <div
+              key={item.label}
+              className="bg-white rounded-2xl shadow p-6 text-center"
+            >
+              <p className="text-gray-500 text-sm">{item.label}</p>
+              <p className="text-2xl font-bold mt-2">{item.value}</p>
+            </div>
+          ))}
         </div>
 
-        <div style={{ flex: 1, height: 300 }}>
-          <ResponsiveContainer>
-            <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="day" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="sales" />
-            </BarChart>
-          </ResponsiveContainer>
+        {/* Charts */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-white rounded-2xl shadow p-6 h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={chartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="day" />
+                <YAxis />
+                <Tooltip />
+                <Line type="monotone" dataKey="sales" />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow p-6 h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={chartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="day" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="sales" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
     </div>
