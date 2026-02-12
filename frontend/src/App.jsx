@@ -23,10 +23,7 @@ function App() {
   if (!stats) return <div>Loading...</div>;
 
   // priprema podataka za recharts
-  const chartData = stats.sales_history.map((value, index) => ({
-    day: `D${index + 1}`,
-    sales: value,
-  }));
+  const chartData = stats.sales_history;
 
   return (
     <div className="min-h-screen bg-gray-100 p-10">
