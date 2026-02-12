@@ -1,11 +1,13 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
+from pathlib import Path
 
-DATABASE_URL = "sqlite:///./dashboard.db"
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATABASE_URL = f"sqlite:///{BASE_DIR}/dashboard.db"
 
 engine = create_engine(
     DATABASE_URL,
-    connect_args={"check_same_thread": False}  # potrebno za SQLite
+    connect_args={"check_same_thread": False}
 )
 
 SessionLocal = sessionmaker(

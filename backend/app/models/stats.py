@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer
+from sqlalchemy.orm import relationship
 from app.db import Base
 
 
@@ -9,3 +10,5 @@ class Stats(Base):
     users = Column(Integer, nullable=False)
     sales = Column(Integer, nullable=False)
     revenue = Column(Integer, nullable=False)
+
+    history = relationship("SalesHistory", back_populates="stats")

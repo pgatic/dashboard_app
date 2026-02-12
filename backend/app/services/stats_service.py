@@ -13,10 +13,10 @@ def get_stats(db: Session):
         "sales": stats.sales,
         "revenue": stats.revenue,
         "sales_history": [
-            {"day": "Mon", "sales": 5},
-            {"day": "Tue", "sales": 8},
-            {"day": "Wed", "sales": 6},
-            {"day": "Thu", "sales": 10},
-            {"day": "Fri", "sales": 6},
+            {
+                "day": item.day,
+                "sales": item.sales,
+            }
+            for item in stats.history
         ],
     }
