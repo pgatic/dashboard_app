@@ -13,15 +13,37 @@ import {
 
 function App() {
   const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
-    fetch(`${apiBaseUrl}/api/stats`)
-      .then((res) => res.json())
-      .then((data) => setStats(data));
+    async function fetchStats() {
+      setLoading(true);
+      setError("");
+
+      try {
+        const res = await fetch(`${apiBaseUrl}/api/stats`);
+
+        if (!res.ok) {
+          throw new Error("Failed to load dashboard stats.");
+        }
+
+        const data = await res.json();
+        setStats(data);
+      } catch (err) {
+        setError(err.message || "Failed to load dashboard stats.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchStats();
   }, []);
 
-  if (!stats) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+  if (!stats) return null;
 
   // priprema podataka za recharts
   const chartData = stats.sales_history;
