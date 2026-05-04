@@ -13,9 +13,10 @@ import {
 
 function App() {
   const [stats, setStats] = useState(null);
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/stats")
+    fetch(`${apiBaseUrl}/api/stats`)
       .then((res) => res.json())
       .then((data) => setStats(data));
   }, []);
