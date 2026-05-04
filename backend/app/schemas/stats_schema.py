@@ -7,6 +7,12 @@ class SalesHistoryItem(BaseModel):
     sales: int
 
 
+class StatsUpdate(BaseModel):
+    users: int
+    sales: int
+    revenue: int
+
+
 class StatsResponse(BaseModel):
     users: int
     sales: int
